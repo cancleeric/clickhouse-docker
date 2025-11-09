@@ -1,0 +1,42 @@
+# ClickHouse Data
+data/
+clickhouse_data/
+clickhouse_logs/
+*.clickhouse
+
+# Logs
+*.log
+logs/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Docker volumes
+volumes/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# ClickHouse specific
+preprocessing/
+shadow/
+store/
+metadata/
