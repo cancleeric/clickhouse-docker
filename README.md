@@ -96,7 +96,10 @@ print(result)
 Clickhouse/
 ├── docker-compose.yml    # Docker Compose 配置
 ├── README.md            # 本文件
-└── .gitignore          # Git 忽略規則
+├── .gitignore          # Git 忽略規則
+├── data/               # ClickHouse 資料目錄 (本地映射，已忽略)
+├── logs/               # ClickHouse 日誌目錄 (本地映射，已忽略)
+└── backup/             # 資料備份目錄 (已忽略)
 ```
 
 ## 🔧 配置說明
@@ -116,9 +119,27 @@ Clickhouse/
 
 ## 📊 資料持久化
 
-資料儲存在 Docker volumes：
-- `clickhouse_data`: ClickHouse 資料檔案
-- `clickhouse_logs`: ClickHouse 日誌檔案
+**⚠️ 重要變更 (2025-11-09)**: 已從 Docker named volumes 改為主機目錄映射
+
+資料儲存在本地主機目錄：
+- `./data/`: ClickHouse 資料檔案 (映射到容器 `/var/lib/clickhouse`)
+- `./logs/`: ClickHouse 日誌檔案 (映射到容器 `/var/log/clickhouse-server`)
+
+### 優勢
+- ✅ 直接從本機文件系統訪問資料庫文件
+- ✅ 使用標準文件系統工具即可備份
+- ✅ 可在不同開發環境間共享資料
+- ✅ 刪除容器不會丟失資料
+
+### 備份建議
+
+```bash
+# 手動備份
+tar czf backup/clickhouse_backup_$(date +%Y%m%d_%H%M%S).tar.gz data/
+
+# 恢復備份
+tar xzf backup/clickhouse_backup_YYYYMMDD_HHMMSS.tar.gz
+```
 
 ## 🛠️ 常用指令
 

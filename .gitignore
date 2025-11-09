@@ -3,6 +3,7 @@ data/
 clickhouse_data/
 clickhouse_logs/
 *.clickhouse
+backup/
 
 # Logs
 *.log
